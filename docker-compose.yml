@@ -25,6 +25,13 @@ services:
       - database.env
     ports:
       - "5432:5432"
+  database_test:
+    hostname: database_test
+    image: "postgres:13.2-alpine"
+    env_file:
+      - database_test.env
+    ports:
+      - "5433:5432"
   service:
     build: .
     links:

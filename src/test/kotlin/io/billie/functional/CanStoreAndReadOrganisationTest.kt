@@ -22,6 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFIN
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.jdbc.core.JdbcTemplate
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -31,6 +32,7 @@ import java.util.*
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = DEFINED_PORT)
+@ActiveProfiles("test")
 class CanStoreAndReadOrganisationTest {
 
     @LocalServerPort

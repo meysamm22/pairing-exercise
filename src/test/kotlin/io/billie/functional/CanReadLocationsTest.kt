@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT
 import org.springframework.boot.test.web.server.LocalServerPort
 import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -19,6 +20,7 @@ import java.util.*
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = DEFINED_PORT)
+@ActiveProfiles("test")
 class CanReadLocationsTest {
 
     @LocalServerPort

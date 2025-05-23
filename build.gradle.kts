@@ -40,6 +40,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     runtimeOnly("org.postgresql:postgresql")
 
+    testImplementation("org.flywaydb:flyway-core")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
