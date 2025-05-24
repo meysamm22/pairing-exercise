@@ -1,13 +1,17 @@
+FROM gradle:7.6-jdk17 as build
+
+COPY --chown=gradle:gradle . /home/gradle/project
+WORKDIR /home/gradle/project
+
+RUN gradle clean installDist
+
 FROM adoptopenjdk/openjdk15 as base
 
 RUN mkdir -p /opt/organisations
 WORKDIR /opt/organisations
 
-RUN apt-get update && apt-get install -y unzip
-
-COPY ./build/distributions/organisations-0.0.1.zip /opt/organisations/organisations.zip
-RUN unzip organisations.zip && rm organisations.zip
+COPY --from=build /home/gradle/project/build/install/organisations /opt/organisations
 
 EXPOSE 80
 
-CMD ["java", "-classpath", "/opt/organisations/organisations-0.0.1/lib/*", "-Dspring.profiles.active=production", "io.billie.ApplicationKt"]
+CMD ["java", "-classpath", "/opt/organisations/lib/*", "-Dspring.profiles.active=production", "io.billie.ApplicationKt"]

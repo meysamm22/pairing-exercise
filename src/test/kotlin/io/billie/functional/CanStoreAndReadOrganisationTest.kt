@@ -11,7 +11,7 @@ import io.billie.functional.data.Fixtures.orgRequestJsonNameBlank
 import io.billie.functional.data.Fixtures.orgRequestJsonNoContactDetails
 import io.billie.functional.data.Fixtures.orgRequestJsonNoCountryCode
 import io.billie.functional.data.Fixtures.orgRequestJsonNoLegalEntityType
-import io.billie.organisations.viewmodel.Entity
+import io.billie.organisations.presentation.viewmodel.CreatedOrganisationViewModel
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.jupiter.api.Test
@@ -120,7 +120,7 @@ class CanStoreAndReadOrganisationTest {
         .andExpect(status().isOk)
         .andReturn()
 
-        val response = mapper.readValue(result.response.contentAsString, Entity::class.java)
+        val response = mapper.readValue(result.response.contentAsString, CreatedOrganisationViewModel::class.java)
 
         val org: Map<String, Any> = orgFromDatabase(response.id)
         assertDataMatches(org, bbcFixture(response.id))

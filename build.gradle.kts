@@ -45,7 +45,7 @@ dependencies {
 }
 
 flyway {
-    url = dbConf.getProperty("DATABASE_URL")
+    url = dbConf.getProperty("DATABASE_URL_FLYWAY")
     user = dbConf.getProperty("POSTGRES_USER")
     password = dbConf.getProperty("POSTGRES_PASSWORD")
     locations = arrayOf(dbConf.getProperty("DATABASE_MIGRATION"))
