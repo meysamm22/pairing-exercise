@@ -3,7 +3,7 @@ package io.billie.organisations.infrastructure
 import java.time.LocalDate
 import java.util.UUID
 
-data class OrganisationDto(
+data class OrganisationDatabaseDto(
     val id: UUID,
     val name: String,
     val dateFounded: LocalDate,

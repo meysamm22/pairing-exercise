@@ -7,7 +7,7 @@ import io.billie.organisations.domain.model.CountryInfo
 import io.billie.organisations.domain.model.LegalType
 import io.billie.organisations.domain.model.Organisation
 import io.billie.organisations.infrastructure.CountryProviderAdapter
-import io.billie.organisations.infrastructure.OrganisationDto
+import io.billie.organisations.infrastructure.OrganisationDatabaseDto
 import io.billie.organisations.presentation.dto.OrganisationRequestDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -19,7 +19,7 @@ internal class OrganisationFactory {
     private val countries: Map<String, CountryDto> by lazy {
         countryProviderAdapter.findAll()
     }
-    fun createFromDto(dto: OrganisationDto): Organisation {
+    fun createFromDto(dto: OrganisationDatabaseDto): Organisation {
         val countryInfo: CountryInfo = getCountry(dto.countryCode)
 
         val contactDetails: ContactDetails = ContactDetails.Companion.create(

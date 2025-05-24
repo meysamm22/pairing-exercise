@@ -25,7 +25,7 @@ internal class OrganisationRepository: OrganisationRepositoryInterface {
 
     @Transactional(readOnly = true)
     override fun findAll(): List<Organisation> {
-        val dtos: List<OrganisationDto> = jdbcTemplate.query(organisationQuery(), organisationDtoMapper())
+        val dtos: List<OrganisationDatabaseDto> = jdbcTemplate.query(organisationQuery(), organisationDtoMapper())
 
         return dtos.map { dto -> organisationFactory.createFromDto(dto) }
     }
@@ -104,8 +104,8 @@ internal class OrganisationRepository: OrganisationRepositoryInterface {
             "organisations_schema.organisations o " +
             "INNER JOIN organisations_schema.contact_details cd on o.contact_details_id::uuid = cd.id::uuid "
 
-    private fun organisationDtoMapper() = RowMapper<OrganisationDto> { it: ResultSet, _: Int ->
-        OrganisationDto(
+    private fun organisationDtoMapper() = RowMapper<OrganisationDatabaseDto> { it: ResultSet, _: Int ->
+        OrganisationDatabaseDto(
             it.getObject("id", UUID::class.java),
             it.getString("name"),
             Date(it.getDate("date_founded").time).toLocalDate(),
