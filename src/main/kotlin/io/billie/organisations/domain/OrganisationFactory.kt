@@ -8,7 +8,7 @@ import io.billie.organisations.domain.model.LegalType
 import io.billie.organisations.domain.model.Organisation
 import io.billie.organisations.infrastructure.CountryProviderAdapter
 import io.billie.organisations.infrastructure.OrganisationDatabaseDto
-import io.billie.organisations.presentation.dto.OrganisationRequestDto
+import io.billie.organisations.application.dto.OrganisationRequestDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

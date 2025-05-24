@@ -1,8 +1,8 @@
 package io.billie.organisations.presentation.controller
 
-import io.billie.organisations.presentation.dto.OrganisationRequestDto
 import io.billie.organisations.application.usecase.CreateOrganisationUseCase
 import io.billie.organisations.application.usecase.ListOrganisationUseCase
+import io.billie.organisations.presentation.request.OrganisationRequest
 import io.billie.organisations.presentation.viewmodel.CreatedOrganisationViewModel
 import io.billie.organisations.presentation.viewmodel.OrganisationViewModel
 import io.swagger.v3.oas.annotations.media.ArraySchema
@@ -44,9 +44,12 @@ class OrganisationController(
             ),
             ApiResponse(responseCode = "400", description = "Bad request", content = [Content()])]
     )
-    fun create(@Valid @RequestBody organisation: OrganisationRequestDto): ResponseEntity<CreatedOrganisationViewModel> {
+    fun create(@Valid @RequestBody organisation: OrganisationRequest): ResponseEntity<CreatedOrganisationViewModel> {
         try {
-            return ResponseEntity.ok(createOrganisationUseCase.createOrganisation(organisation))
+            return ResponseEntity.ok(createOrganisationUseCase.createOrganisation(
+                    organisation.toOrganisationRequestDto()
+                )
+            )
         } catch (e: RuntimeException) {
             throw ResponseStatusException(HttpStatus.BAD_REQUEST, e.message)
         }
