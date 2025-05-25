@@ -19,7 +19,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import java.math.BigDecimal
-import java.util.UUID
 
 class OrderTest {
 
@@ -35,7 +34,7 @@ class OrderTest {
     @Test
     fun validOrderCreationTest() {
         val dto: OrderDatabaseDto = getValidOrderDatabaseDto()
-        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(UUID.randomUUID(), "Merchant name"))
+        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(dto.merchantId, "Merchant name"))
         val order: Order = factory.createFromDto(dto)
 
         Assertions.assertNotNull(order)
@@ -55,7 +54,7 @@ class OrderTest {
     @Test
     fun invalidWithMinusTotalAmountOrderCreationTest() {
         val dto: OrderDatabaseDto = getInvalidOrderWithMinusAmountDatabaseDto()
-        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(UUID.randomUUID(), "Merchant name"))
+        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(dto.merchantId, "Merchant name"))
 
         val ex = assertThrows(InvalidMoneyValueException::class.java) {
             val order: Order = factory.createFromDto(dto)
@@ -66,7 +65,7 @@ class OrderTest {
     @Test
     fun invalidWithExceededTotalAmountOrderCreationTest() {
         val dto: OrderDatabaseDto = getInvalidOrderWithExceededAmountOfShipmentsDatabaseDto()
-        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(UUID.randomUUID(), "Merchant name"))
+        `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(dto.merchantId, "Merchant name"))
 
         val ex = assertThrows(ExceededOrderAmountException::class.java) {
             val order: Order = factory.createFromDto(dto)
