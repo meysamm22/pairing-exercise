@@ -1,5 +1,8 @@
 package io.billie.orders.domain.model
 
+import io.billie.orders.domain.exception.ExceededOrderAmountException
+import io.billie.orders.domain.exception.InvalidMoneyValueException
+import java.math.BigDecimal
 import java.util.UUID
 
 internal class Order private constructor(
@@ -15,6 +18,11 @@ internal class Order private constructor(
     val buyer: BuyerInfo get() = _buyer
 
     internal fun addShipment(shipment: Shipment) {
+        val totalShipped = shipments.sumOf { it.amount }
+        val newTotal = totalShipped + shipment.amount
+        if (newTotal >= totalAmount.amount) {
+            throw ExceededOrderAmountException("Shipment amounts must not exceed the total amount or the order")
+        }
         shipments.add(shipment)
     }
 
@@ -26,6 +34,11 @@ internal class Order private constructor(
             merchant: MerchantInfo,
             buyer: BuyerInfo,
         ) : Order {
+
+            if (totalAmount.amount < BigDecimal.valueOf(0)) {
+                throw InvalidMoneyValueException("Total amount must be positive")
+            }
+
             var order = Order(
                 id,
                 totalAmount,
