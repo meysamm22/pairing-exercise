@@ -81,6 +81,8 @@ class OrderTest {
         val ex = assertThrows(MerchantNotFoundException::class.java) {
             val order: Order = factory.createFromDto(dto)
         }
+        assertEquals("Merchant not found", ex.message)
+
     }
 
 }
