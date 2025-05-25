@@ -2,7 +2,7 @@ package io.billie.merchants.domain.model
 
 import java.util.UUID
 
-internal class CountryInfo private constructor(
+class CountryInfo private constructor(
     private val _id: UUID,
     private val _name: String,
     private val _code: String

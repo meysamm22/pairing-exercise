@@ -4,7 +4,7 @@ import io.billie.merchants.domain.exception.InvalidMerchantInfoException
 import java.time.LocalDate
 import java.util.UUID
 
-internal class Merchant private constructor(
+class Merchant private constructor(
     private val _id: UUID?,
     private val _name: String,
     private val _dateFounded: LocalDate,
