@@ -57,7 +57,7 @@ class OrderTest {
         `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(dto.merchantId, "Merchant name"))
 
         val ex = assertThrows(InvalidMoneyValueException::class.java) {
-            val order: Order = factory.createFromDto(dto)
+            factory.createFromDto(dto)
         }
         assertEquals("Total amount must be positive", ex.message)
     }
@@ -68,7 +68,7 @@ class OrderTest {
         `when` (provider.findById(dto.merchantId)).thenReturn(MerchantExposeDto(dto.merchantId, "Merchant name"))
 
         val ex = assertThrows(ExceededOrderAmountException::class.java) {
-            val order: Order = factory.createFromDto(dto)
+            factory.createFromDto(dto)
         }
         assertEquals("Shipment amounts must not exceed the total amount or the order", ex.message)
     }
@@ -78,7 +78,7 @@ class OrderTest {
         val dto: OrderDatabaseDto = getValidOrderDatabaseDto()
         `when` (provider.findById(dto.merchantId)).thenReturn(null)
         val ex = assertThrows(MerchantNotFoundException::class.java) {
-            val order: Order = factory.createFromDto(dto)
+             factory.createFromDto(dto)
         }
         assertEquals("Merchant not found", ex.message)
 

@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.jdbc.support.GeneratedKeyHolder
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
 import java.util.UUID
 
-@SpringBootTest(webEnvironment = DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @ActiveProfiles("test")
 class AddShipmentUseCaseTest {
@@ -141,7 +140,7 @@ class AddShipmentUseCaseTest {
         )
         """.trimIndent()
 
-        return template.queryForObject(sql, Boolean::class.java, orderId, shipmentAmount) ?: false
+        return template.queryForObject(sql, Boolean::class.java, orderId, shipmentAmount)
     }
 
 
