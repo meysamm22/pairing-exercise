@@ -52,3 +52,24 @@ I have decided to refactor it.
  - More strict validations in presentation layer
  - Better exception and error handling
  - Logging
+
+## Implement the order context
+
+- As I understood, it is requested to implement only add shipment to an order feature 
+- Implemented in DDD
+- Order aggregate root (save and retrive)
+- Used an exposed service from merchant context to read them
+- Added some unit test and integration tests in TDD approach
+
+### Nice to be implemented in this section in the future:
+
+- Logging
+- A domain event (e.g., ShipmentAddedEvent) for invoices and payment in the future
+- Exception handing
+
+Running the tests:
+```shell
+cd <project_root>
+docker compose up database_test -d
+gradle clean test
+```
