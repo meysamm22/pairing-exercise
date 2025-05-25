@@ -7,7 +7,7 @@ import io.billie.orders.domain.exception.InvalidMoneyValueException
 import io.billie.orders.domain.exception.MerchantNotFoundException
 import io.billie.orders.domain.model.Order
 import io.billie.orders.infrastructure.MerchantProviderAdapter
-import io.billie.orders.infrastructure.OrderDatabaseDto
+import io.billie.orders.infrastructure.dto.OrderDatabaseDto
 import org.junit.jupiter.api.Test
 import io.billie.unit.orders.fixtures.OrderFixture.getValidOrderDatabaseDto
 import io.billie.unit.orders.fixtures.OrderFixture.getInvalidOrderWithMinusAmountDatabaseDto

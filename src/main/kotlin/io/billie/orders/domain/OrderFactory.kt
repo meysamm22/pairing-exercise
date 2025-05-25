@@ -7,7 +7,7 @@ import io.billie.orders.domain.model.Money
 import io.billie.orders.domain.model.Order
 import io.billie.orders.domain.model.Shipment
 import io.billie.orders.infrastructure.MerchantProviderAdapter
-import io.billie.orders.infrastructure.OrderDatabaseDto
+import io.billie.orders.infrastructure.dto.OrderDatabaseDto
 import org.springframework.stereotype.Service
 
 @Service

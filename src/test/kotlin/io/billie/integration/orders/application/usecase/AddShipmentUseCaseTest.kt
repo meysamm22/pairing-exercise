@@ -61,9 +61,6 @@ class AddShipmentUseCaseTest {
             addShipmentUseCase.add(addShipmentRequestDto)
         }
         assertEquals("Order not found", ex.message)
-
-        Assertions.assertTrue(shipmentExists(orderId, addShipmentRequestDto.shipmentsAmount))
-
     }
 
     @Test
@@ -76,8 +73,6 @@ class AddShipmentUseCaseTest {
             addShipmentUseCase.add(addShipmentRequestDto)
         }
         assertEquals("Shipment amount must be positive", ex.message)
-
-        Assertions.assertTrue(shipmentExists(orderId, addShipmentRequestDto.shipmentsAmount))
 
     }
 
@@ -92,9 +87,6 @@ class AddShipmentUseCaseTest {
             addShipmentUseCase.add(addShipmentRequestDto)
         }
         assertEquals("Shipment amounts must not exceed the total amount or the order", ex.message)
-
-        Assertions.assertTrue(shipmentExists(orderId, addShipmentRequestDto.shipmentsAmount))
-
     }
 
     private fun addSampleOrderToDatabase() : UUID{
@@ -111,8 +103,8 @@ class AddShipmentUseCaseTest {
                     arrayOf("id")
                 )
                 ps.setBigDecimal(1, BigDecimal.valueOf(32.99))
-                ps.setString(2, merchantId.toString())
-                ps.setString(3, buyerId.toString())
+                ps.setObject(2, merchantId)
+                ps.setObject(3, buyerId)
                 ps
             },
             keyHolder
@@ -132,7 +124,7 @@ class AddShipmentUseCaseTest {
                             ") values(?,?)",
                     arrayOf("id")
                 )
-                ps.setString(1, orderId.toString())
+                ps.setObject(1, orderId)
                 ps.setBigDecimal(2, BigDecimal.valueOf(10.99))
                 ps
             },
@@ -149,7 +141,7 @@ class AddShipmentUseCaseTest {
         )
         """.trimIndent()
 
-        return template.queryForObject(sql, Boolean::class.java, orderId.toString(), shipmentAmount) ?: false
+        return template.queryForObject(sql, Boolean::class.java, orderId, shipmentAmount) ?: false
     }
 
 

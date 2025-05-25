@@ -17,13 +17,18 @@ internal class Order private constructor(
     val merchant: MerchantInfo get() = _merchant
     val buyer: BuyerInfo get() = _buyer
 
-    internal fun addShipment(shipment: Shipment) {
+    internal fun addShipment(shipmentAmount: BigDecimal) {
         val totalShipped = shipments.sumOf { it.amount.amount }
-        val newTotal = totalShipped + shipment.amount.amount
+        val newTotal = totalShipped + shipmentAmount
         if (newTotal >= totalAmount.amount) {
             throw ExceededOrderAmountException("Shipment amounts must not exceed the total amount or the order")
         }
-        shipments.add(shipment)
+        shipments.add(
+            Shipment.create(
+                null,
+                Money.create(shipmentAmount)
+            )
+        )
     }
 
     internal companion object{
@@ -45,7 +50,7 @@ internal class Order private constructor(
                 merchant,
                 buyer
             )
-            shipments.forEach { shipment -> order.addShipment(shipment) }
+            shipments.forEach { shipment -> order.addShipment(shipment.amount.amount) }
 
             return order
         }

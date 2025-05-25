@@ -1,6 +1,6 @@
 package io.billie.unit.orders.fixtures
 
-import io.billie.orders.infrastructure.OrderDatabaseDto
+import io.billie.orders.infrastructure.dto.OrderDatabaseDto
 import java.math.BigDecimal
 import java.util.UUID
 

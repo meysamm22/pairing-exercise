@@ -1,4 +1,4 @@
-package io.billie.orders.infrastructure
+package io.billie.orders.infrastructure.dto
 
 import java.math.BigDecimal
 import java.util.UUID
