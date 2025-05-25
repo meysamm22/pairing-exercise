@@ -11,6 +11,11 @@ class MerchantQueryService() : MerchantProviderInterface {
     private lateinit var repository: MerchantRepository
 
     override fun findById(id: UUID): MerchantExposeDto? {
-        return null //TODO:: Will be implemented after unit tests
+        val merchant = repository.findById(id)
+        if (merchant == null) {
+            return null
+        }
+
+        return MerchantExposeDto(merchant.id, merchant.name)
     }
 }

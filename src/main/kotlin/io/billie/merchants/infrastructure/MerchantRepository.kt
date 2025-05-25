@@ -21,7 +21,7 @@ internal class MerchantRepository: MerchantRepositoryInterface {
     lateinit var jdbcTemplate: JdbcTemplate
 
     @Autowired
-    lateinit var merchantFactory: MerchantFactory
+    private lateinit var merchantFactory: MerchantFactory
 
     @Transactional(readOnly = true)
     override fun findAll(): List<Merchant> {
@@ -34,6 +34,31 @@ internal class MerchantRepository: MerchantRepositoryInterface {
     override fun create(merchant: Merchant): UUID {
         val id: UUID = createContactDetails(merchant)
         return createMerchant(merchant, id)
+    }
+
+    @Transactional(readOnly = true)
+    override fun findById(id: UUID): Merchant? {
+        val dto: MerchantDatabaseDto? = jdbcTemplate.queryForObject(
+            "select " +
+                    "o.id as id, " +
+                    "o.name as name, " +
+                    "o.date_founded as date_founded, " +
+                    "o.country_code as country_code, " +
+                    "o.VAT_number as VAT_number, " +
+                    "o.registration_number as registration_number," +
+                    "o.legal_entity_type as legal_entity_type," +
+                    "o.contact_details_id as contact_details_id, " +
+                    "from " +
+                    "organisations_schema.organisations o " +
+                    "WHERE id = ?",
+            merchantDtoMapper(),
+            id.toString()
+        )
+        if (dto == null) {
+            return null
+        }
+
+        return merchantFactory.createFromDto(dto);
     }
 
     private fun createMerchant(org: Merchant, contactDetailsId: UUID): UUID {
@@ -104,8 +129,9 @@ internal class MerchantRepository: MerchantRepositoryInterface {
             "organisations_schema.organisations o " +
             "INNER JOIN organisations_schema.contact_details cd on o.contact_details_id::uuid = cd.id::uuid "
 
-    private fun merchantDtoMapper() = RowMapper<MerchantDatabaseDto> { it: ResultSet, _: Int ->
-        MerchantDatabaseDto(
+    private fun merchantDtoMapper() = RowMapper<MerchantDatabaseDto> {
+        it: ResultSet, _: Int ->
+            MerchantDatabaseDto(
             it.getObject("id", UUID::class.java),
             it.getString("name"),
             Date(it.getDate("date_founded").time).toLocalDate(),

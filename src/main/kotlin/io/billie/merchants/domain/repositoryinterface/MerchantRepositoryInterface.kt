@@ -6,4 +6,5 @@ import java.util.UUID
 internal interface MerchantRepositoryInterface {
     fun findAll(): List<Merchant>
     fun create(merchant: Merchant): UUID
+    fun findById(id: UUID): Merchant?
 }

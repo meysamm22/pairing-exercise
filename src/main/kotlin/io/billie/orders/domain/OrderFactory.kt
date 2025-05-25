@@ -16,7 +16,7 @@ internal class OrderFactory(private val merchantProviderAdapter: MerchantProvide
     fun createFromDto(orderDatabaseDto: OrderDatabaseDto): Order {
 
         val merchantInfo = merchantProviderAdapter.findById(orderDatabaseDto.merchantId)
-        if (merchantInfo == null) {
+        if (merchantInfo == null || merchantInfo.id == null) {
             throw MerchantNotFoundException("Merchant not found")
         }
 
