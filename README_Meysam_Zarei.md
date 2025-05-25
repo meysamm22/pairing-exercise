@@ -28,6 +28,10 @@ I have decided to refactor it.
 
 #### Achievement of this refactoring
 
+- Renamed the organisations to merchants context
+    - I assumed that organisations apis are not using, if they are, I would keep them
+    - As I understood, I found the merchant term for this business logic
+    - But before that we should have discussed it with domain expert
 - Separation of concerns
 - Centralizing the domain logic
 - Encapsulation
@@ -43,8 +47,7 @@ I have decided to refactor it.
  - Unit tests for domain madel and invariants
  - Better naming of bounded contexts
    - Countries => location
-   - Organisations => merchant
-   - Why didn't I change them? Because now there is no domain expert to discuss these naming conventions
+ - Change the database layer naming of organisation => merchant
  - More strict invariant in domain models
  - More strict validations in presentation layer
  - Better exception and error handling
