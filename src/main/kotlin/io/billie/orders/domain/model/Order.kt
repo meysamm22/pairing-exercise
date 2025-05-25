@@ -18,8 +18,8 @@ internal class Order private constructor(
     val buyer: BuyerInfo get() = _buyer
 
     internal fun addShipment(shipment: Shipment) {
-        val totalShipped = shipments.sumOf { it.amount }
-        val newTotal = totalShipped + shipment.amount
+        val totalShipped = shipments.sumOf { it.amount.amount }
+        val newTotal = totalShipped + shipment.amount.amount
         if (newTotal >= totalAmount.amount) {
             throw ExceededOrderAmountException("Shipment amounts must not exceed the total amount or the order")
         }

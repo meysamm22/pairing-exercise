@@ -5,15 +5,15 @@ import java.util.UUID
 
 internal class Shipment private constructor(
     private val _id: UUID,
-    private val _amount: BigDecimal
+    private val _amount: Money
 ) {
     val uuid: UUID get() = _id
-    val amount: BigDecimal get() = _amount
+    val amount: Money get() = _amount
 
     internal companion object {
         fun create(
             id: UUID,
-            amount: BigDecimal
+            amount: Money
         ): Shipment {
             return Shipment(id, amount)
         }

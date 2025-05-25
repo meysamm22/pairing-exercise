@@ -24,7 +24,7 @@ internal class OrderFactory(private val merchantProviderAdapter: MerchantProvide
             orderDatabaseDto.id,
             Money.create(orderDatabaseDto.totalAmount),
             orderDatabaseDto.shipments.map {
-                shipment -> Shipment.create(shipment.key, shipment.value)
+                shipment -> Shipment.create(shipment.key, Money.create(shipment.value))
             }.toMutableList(),
             MerchantInfo.create(
                 merchantInfo.id, merchantInfo.name

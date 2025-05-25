@@ -46,7 +46,7 @@ class OrderTest {
         Assertions.assertEquals(order.shipments.size, dto.shipments.size)
         Assertions.assertTrue(order.totalAmount.amount > BigDecimal.valueOf(0))
         Assertions.assertEquals(
-            order.shipments.sumOf {shipment -> shipment.amount},
+            order.shipments.sumOf {shipment -> shipment.amount.amount},
             dto.shipments.values.sumOf { it }
             )
     }
